@@ -3,7 +3,7 @@
 
 <div align="center">
   <a
-    href="https://crates.io"
+    href="https://crates.io/crates/turbopuffer-client"
     style="text-decoration: none;">
     <img
       src="https://img.shields.io/crates/v/turbopuffer-client.svg"
@@ -28,9 +28,9 @@
 
 # Overview
 
-This is a Rust Client for interacting with the [Turbopuffer](https://turbopuffer.com/) vector database.
+This is a Rust Client for interacting with the [`turbopuffer`](https://turbopuffer.com/) vector database.
 
-_Note: Right now this library doesn't validate the JSON body, it simply passes what you construct to turbopuffer. For a full list of options see [https://turbopuffer.com/docs](https://turbopuffer.com/docs)._
+_Note: Right now, this library doesn't validate the JSON body, it simply passes what you construct to turbopuffer. For a full list of options see [https://turbopuffer.com/docs](https://turbopuffer.com/docs)._
 
 ## Usage
 

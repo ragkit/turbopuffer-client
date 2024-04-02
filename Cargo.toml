@@ -5,6 +5,9 @@ authors = ["Ragkit <hi@ragkit.com>"]
 version = "0.0.1"
 edition = "2021"
 license = "MIT"
+documentation = "https://docs.rs/turbopuffer-client/latest/turbopuffer-client/"
+repository = "https://github.com/ragkit/turbopuffer-client"
+homepage = "https://github.com/ragkit/turbopuffer-client"
 
 [dependencies]
 anyhow = "1.0.81"
