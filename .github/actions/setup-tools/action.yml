@@ -1,0 +1,41 @@
+name: Set up tools
+description: Common setup for CI tools
+
+inputs:
+  github-token:
+    required: true
+    description: "pass secrets.GITHUB_TOKEN"
+
+runs:
+  using: composite
+  steps:
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v2.2.4
+
+    - name: Setup node
+      uses: actions/setup-node@v3
+      with:
+        node-version-file: ".nvmrc"
+
+    - name: Install just
+      uses: extractions/setup-just@v1
+      env:
+        GITHUB_TOKEN: ${{ inputs.github-token }}
+
+    - name: Install rust
+      uses: dsherret/rust-toolchain-file@v1
+
+    - name: Export environment variables
+      shell: bash
+      run: |
+        echo "CARGO_TERM_COLOR=always" >> $GITHUB_ENV
+        echo "CARGO_INCREMENTAL=0" >> $GITHUB_ENV
+
+    # Note: this action inspects the environment and variables starting with
+    # `CARGO_` are used as part of the cache key.
+    #
+    # If users of this composite action add additional `CARGO_*` variables after
+    # this step runs, the cache key used for storing the job outputs will not
+    # match the cache key used for restoring.
+    - name: Setup rust cache
+      uses: Swatinem/rust-cache@v2.7.3

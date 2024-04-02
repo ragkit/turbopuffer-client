@@ -1,0 +1,17 @@
+edition = "2021"
+max_width = 80
+tab_spaces = 2
+newline_style = "Unix"
+
+# Comment formatting
+wrap_comments = true
+format_code_in_doc_comments = true
+comment_width = 80
+
+# Prevents fighting with format on save.
+empty_item_single_line = false
+
+# Import organization
+imports_layout = "Vertical"
+imports_granularity = "Crate"
+group_imports = "One"

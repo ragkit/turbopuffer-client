@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Tools
+        uses: ./.github/actions/setup-tools
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Check Cargo.lock
+        run: cargo update -w --locked
+
+      - name: Build
+        run: |
+          just build
+
+      - name: Test
+        run: |
+          just test
+
+      - name: Check for uncommitted changes
+        run: git diff --exit-code

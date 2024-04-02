@@ -1,0 +1,15 @@
+[package]
+name = "turbopuffer-client"
+description = "Client for the turbopuffer vector database"
+authors = ["Ragkit <hi@ragkit.com>"]
+version = "0.0.0"
+edition = "2021"
+license = "MIT"
+
+[dependencies]
+anyhow = "1.0.81"
+serde = "1.0.197"
+serde_json = "1.0.114"
+
+[lib]
+path = "src/lib.rs"
