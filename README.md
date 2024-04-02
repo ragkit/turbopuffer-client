@@ -28,7 +28,9 @@
 
 # Overview
 
-This is a Rust Client for interacting with the [Turbopuffer](https://turbopuffer.com/) vector database. For full API docs see: [https://turbopuffer.com/docs](https://turbopuffer.com/docs).
+This is a Rust Client for interacting with the [Turbopuffer](https://turbopuffer.com/) vector database.
+
+_Note: Right now this library doesn't validate the JSON body, it simply passes what you construct to turbopuffer. For a full list of options see [https://turbopuffer.com/docs](https://turbopuffer.com/docs)._
 
 ## Usage
 
