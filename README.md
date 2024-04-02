@@ -1,18 +1,24 @@
-<h1 align="center"><code>turbopuffer-clien</code>
+<h1 align="center"><code>turbopuffer-client</code>
 </h1>
 
 <div align="center">
-  <a href="https://crates.io">
+  <a
+    href="https://crates.io"
+    style="text-decoration: none;">
     <img
       src="https://img.shields.io/crates/v/turbopuffer-client.svg"
       alt="crates.io badge">
   </a>
-  <a href="https://github.com/ragkit/turbopuffer-client/actions">
+  <a
+    href="https://github.com/ragkit/turbopuffer-client/actions"
+    style="text-decoration: none;">
     <img
       src="https://github.com/ragkit/turbopuffer-client/actions/workflows/ci.yml/badge.svg"
       alt="ci badge">
   </a>
-  <a href="./LICENSE">
+  <a
+    href="./LICENSE"
+    style="text-decoration: none;">
     <img
       src="https://img.shields.io/badge/license-MIT-blue"
       alt="license badge">
@@ -26,22 +32,13 @@ Docs coming soon :)
 
 Refer to: https://turbopuffer.com/docs
 
-## Recommended Setup
-
-GitHub repo settings:
-
-- [ ] Create basic ruleset on default branch
-  - restrict deletions
-  - require pull requests
-  - block force pushes
-
 # Contributing
 
-[CONTRIBUTING.md](./CONTRIBUTING.md)
+We warmly welcome any contributions, for more info see: [`CONTRIBUTING.md`](./CONTRIBUTING.md)
 
 # Code of Conduct
 
-[CONDUCT.md](./CONDUCT.md)
+Contributions, including communications over issues, must follow our code of conduct. See: [`CONDUCT.md`](./CONDUCT.md).
 
 # License
 
