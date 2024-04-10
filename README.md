@@ -1,30 +1,8 @@
-<h1 align="center"><code>turbopuffer-client</code>
-</h1>
+# `turbopuffer-client`
 
-<div align="center">
-  <a
-    href="https://crates.io/crates/turbopuffer-client"
-    style="text-decoration: none;">
-    <img
-      src="https://img.shields.io/crates/v/turbopuffer-client.svg"
-      alt="crates.io badge">
-  </a>
-  <a
-    href="https://github.com/ragkit/turbopuffer-client/actions"
-    style="text-decoration: none;">
-    <img
-      src="https://github.com/ragkit/turbopuffer-client/actions/workflows/ci.yml/badge.svg"
-      alt="ci badge">
-  </a>
-  <a
-    href="./LICENSE"
-    style="text-decoration: none;">
-    <img
-      src="https://img.shields.io/badge/license-MIT-blue"
-      alt="license badge">
-  </a>
-</div>
-<br>
+[![crates.io badge](https://img.shields.io/crates/v/turbopuffer-client.svg)](https://crates.io/crates/turbopuffer-client)
+[![ci badge](https://github.com/ragkit/turbopuffer-client/actions/workflows/ci.yml/badge.svg)](https://github.com/ragkit/turbopuffer-client/actions)
+[![license badge](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
 
 # Overview
 
@@ -38,7 +16,7 @@ Install via `Cargo.toml`:
 
 ```toml
 [dependencies]
-turbopuffer-client = "0.0.1"
+turbopuffer-client = "0.0.2"
 ```
 
 Create a client using your API key from [turbopuffer.com](https://turbopuffer.com/):
