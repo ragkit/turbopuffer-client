@@ -29,6 +29,9 @@ jobs:
       - name: Install
         run: pnpm install --frozen-lockfile
 
+      - name: Install cargo audit
+        run: cargo install cargo-audit
+
       - name: Check Cargo.lock
         run: cargo update -w --locked
 
@@ -39,6 +42,9 @@ jobs:
       - name: Test
         run: |
           just test
+
+      - name: Audit
+        run: cargo audit
 
       - name: Check for uncommitted changes
         run: git diff --exit-code
