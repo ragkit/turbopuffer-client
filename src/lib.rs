@@ -10,6 +10,7 @@ pub mod response;
 
 const BASE_URL: &str = "https://api.turbopuffer.com/v1";
 
+#[derive(Clone)]
 pub struct Client {
   api_key: String,
   client: reqwest::Client,
