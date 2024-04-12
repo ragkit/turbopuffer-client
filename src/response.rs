@@ -38,7 +38,7 @@ pub enum Id {
 impl ToString for Id {
   fn to_string(&self) -> String {
     match &self {
-      Id::String(s) => s,
+      Id::String(s) => s.to_string(),
       Id::Int(i) => i.to_string(),
     }
   }
