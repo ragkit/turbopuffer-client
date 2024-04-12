@@ -35,6 +35,15 @@ pub enum Id {
   Int(i32),
 }
 
+impl ToString for Id {
+  fn to_string(&self) -> String {
+    match &self {
+      Id::String(s) => s,
+      Id::Int(i) => i.to_string(),
+    }
+  }
+}
+
 #[derive(Debug, Deserialize)]
 pub struct ResponseVector {
   pub dist: f32,
