@@ -37,3 +37,7 @@ Commits should follow [conventional commits](https://www.conventionalcommits.org
 - Message format: `<type>: <description>`
   - Where type is like: `chore`, `feat`, `docs`, `ci`, `style`, etc.
   - And description is a description of what the commit does.
+
+# Code of Conduct
+
+Contributions, including communications over issues, must follow our code of conduct. See: [`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md).

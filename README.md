@@ -16,7 +16,7 @@ Install via `Cargo.toml`:
 
 ```toml
 [dependencies]
-turbopuffer-client = "0.0.2"
+turbopuffer-client = "0.0.3"
 ```
 
 Create a client using your API key from [turbopuffer.com](https://turbopuffer.com/):
@@ -90,10 +90,6 @@ assert!(matches!(
 # Contributing
 
 We warmly welcome any contributions, for more info see: [`CONTRIBUTING.md`](./CONTRIBUTING.md)
-
-# Code of Conduct
-
-Contributions, including communications over issues, must follow our code of conduct. See: [`CONDUCT.md`](./CONDUCT.md).
 
 # License
 
