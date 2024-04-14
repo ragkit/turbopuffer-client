@@ -71,12 +71,12 @@ impl<'a> NamespacedClient<'a> {
   ///
   /// Example:
   ///
-  /// ```no_run
+  /// ```
   /// use turbopuffer_client::Client;
   ///
   /// let ns = Client::new("secret").namespace("test");
   ///
-  /// let vectors = json!({
+  /// let vectors = serde_json::json!({
   ///   "ids": [1, 2, 3, 4],
   ///   "vectors": [[0.1, 0.1], [0.2, 0.2], [0.3, 0.3], [0.4, 0.4]],
   ///   "attributes": {
@@ -85,7 +85,9 @@ impl<'a> NamespacedClient<'a> {
   ///     "my-string-array": [["a", "b"], ["b", "d"], [], ["c"]]
   ///   }
   /// });
+  /// ````
   ///
+  /// ```ignore
   /// let res = ns.upsert(&vectors).await.unwrap();
   /// ```
   pub async fn upsert(&self, body: &Value) -> Result<UpsertResponse, Error> {
@@ -111,19 +113,21 @@ impl<'a> NamespacedClient<'a> {
   ///
   /// Example:
   ///
-  /// ```no_run
+  /// ```
   /// use turbopuffer_client::Client;
   ///
   /// let ns = Client::new("secret").namespace("test");
   ///
-  /// let query = json!({
+  /// let query = serde_json::json!({
   ///   "vector": [0.105, 0.1],
   ///   "distance_metric": "euclidean_squared",
   ///   "top_k": 1,
   ///   "include_vectors": true,
   ///   "include_attributes": ["my-string"],
   /// });
+  /// ```
   ///
+  /// ```ignore
   /// let res = ns.query(&query).await.unwrap();
   /// ```
   pub async fn query(&self, body: &Value) -> Result<QueryResponse, Error> {
@@ -148,6 +152,12 @@ impl<'a> NamespacedClient<'a> {
   /// Deletes the namespace and all related data.
   ///
   /// Example:
+  ///
+  /// ```
+  /// use turbopuffer_client::Client;
+  ///
+  /// let ns = Client::new("secret").namespace("test");
+  /// ```
   ///
   /// ```ignore
   /// let res = ns.delete().await.unwrap();
