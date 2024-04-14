@@ -1,6 +1,9 @@
 use serde::Deserialize;
 use serde_json::Value;
-use std::collections::HashMap;
+use std::{
+  collections::HashMap,
+  fmt,
+};
 
 #[derive(Debug, Deserialize)]
 pub enum Status {
@@ -35,11 +38,11 @@ pub enum Id {
   Int(i32),
 }
 
-impl ToString for Id {
-  fn to_string(&self) -> String {
+impl fmt::Display for Id {
+  fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
     match &self {
-      Id::String(s) => s.to_string(),
-      Id::Int(i) => i.to_string(),
+      Id::String(s) => write!(f, "{}", s),
+      Id::Int(i) => write!(f, "{}", i),
     }
   }
 }

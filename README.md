@@ -44,7 +44,7 @@ let body = json!({
   }
 });
 
-let res = ns.upsert(&vectors).await.unwrap();
+let res = ns.upsert(&body).await.unwrap();
 
 // This is the response type.
 assert!(matches!(

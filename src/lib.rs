@@ -1,11 +1,16 @@
+use error::Error;
 use response::{
   DeleteResponse,
   QueryResponse,
   ResponseVector,
   UpsertResponse,
 };
-use serde_json::Value;
+use serde_json::{
+  from_value,
+  Value,
+};
 
+pub mod error;
 pub mod response;
 
 const BASE_URL: &str = "https://api.turbopuffer.com/v1";
@@ -21,8 +26,11 @@ impl Client {
   ///
   /// Example:
   ///
-  /// ```ignore
-  /// let client = turbopuffer_client::Client::new(&api_key);
+  /// ```
+  /// use turbopuffer_client::Client;
+  ///
+  /// let api_key = "secret";
+  /// let client = Client::new(api_key);
   /// ```
   ///
   /// Panics: This method panics if a TLS backend cannot be initialized, or the
@@ -39,8 +47,10 @@ impl Client {
   ///
   /// Example:
   ///
-  /// ```ignore
-  /// let ns = client.namespace("test");
+  /// ```
+  /// use turbopuffer_client::Client;
+  ///
+  /// let ns = Client::new("secret").namespace("test");
   /// ```
   pub fn namespace<'a>(&'a self, namespace: &'a str) -> NamespacedClient<'a> {
     NamespacedClient {
@@ -61,7 +71,11 @@ impl<'a> NamespacedClient<'a> {
   ///
   /// Example:
   ///
-  /// ```ignore
+  /// ```no_run
+  /// use turbopuffer_client::Client;
+  ///
+  /// let ns = Client::new("secret").namespace("test");
+  ///
   /// let vectors = json!({
   ///   "ids": [1, 2, 3, 4],
   ///   "vectors": [[0.1, 0.1], [0.2, 0.2], [0.3, 0.3], [0.4, 0.4]],
@@ -74,10 +88,7 @@ impl<'a> NamespacedClient<'a> {
   ///
   /// let res = ns.upsert(&vectors).await.unwrap();
   /// ```
-  pub async fn upsert(
-    &self,
-    body: &Value,
-  ) -> Result<UpsertResponse, anyhow::Error> {
+  pub async fn upsert(&self, body: &Value) -> Result<UpsertResponse, Error> {
     let url = format!("{BASE_URL}/vectors/{}", &self.namespace);
     let res = self
       .client
@@ -89,15 +100,22 @@ impl<'a> NamespacedClient<'a> {
       .send()
       .await?;
 
-    let value = res.json::<UpsertResponse>().await?;
-    Ok(value)
+    let value = res.json::<Value>().await.map_err(error::non_json)?;
+
+    // TODO: Remove or defer clone.
+    from_value::<UpsertResponse>(value.clone())
+      .map_err(|e| error::invalid_response(e, value))
   }
 
   /// Query the namespace for matching vectors.
   ///
   /// Example:
   ///
-  /// ```ignore
+  /// ```no_run
+  /// use turbopuffer_client::Client;
+  ///
+  /// let ns = Client::new("secret").namespace("test");
+  ///
   /// let query = json!({
   ///   "vector": [0.105, 0.1],
   ///   "distance_metric": "euclidean_squared",
@@ -108,10 +126,7 @@ impl<'a> NamespacedClient<'a> {
   ///
   /// let res = ns.query(&query).await.unwrap();
   /// ```
-  pub async fn query(
-    &self,
-    body: &Value,
-  ) -> Result<QueryResponse, anyhow::Error> {
+  pub async fn query(&self, body: &Value) -> Result<QueryResponse, Error> {
     let url = format!("{BASE_URL}/vectors/{}/query", &self.namespace);
     let res = self
       .client
@@ -123,7 +138,10 @@ impl<'a> NamespacedClient<'a> {
       .send()
       .await?;
 
-    let vectors = res.json::<Vec<ResponseVector>>().await?;
+    let value = res.json::<Value>().await.map_err(error::non_json)?;
+    // TODO: Remove or defer clone.
+    let vectors = from_value::<Vec<ResponseVector>>(value.clone())
+      .map_err(|e| error::invalid_response(e, value))?;
     Ok(QueryResponse { vectors })
   }
 
@@ -134,7 +152,7 @@ impl<'a> NamespacedClient<'a> {
   /// ```ignore
   /// let res = ns.delete().await.unwrap();
   /// ```
-  pub async fn delete(&self) -> Result<DeleteResponse, anyhow::Error> {
+  pub async fn delete(&self) -> Result<DeleteResponse, Error> {
     let url = format!("{BASE_URL}/vectors/{}", &self.namespace);
     let res = self
       .client
@@ -145,7 +163,9 @@ impl<'a> NamespacedClient<'a> {
       .send()
       .await?;
 
-    let value = res.json::<DeleteResponse>().await?;
-    Ok(value)
+    let value = res.json::<Value>().await.map_err(error::non_json)?;
+    // TODO: Remove or defer clone.
+    from_value::<DeleteResponse>(value.clone())
+      .map_err(|e| error::invalid_response(e, value))
   }
 }
