@@ -7,7 +7,7 @@ pub enum Error {
   RequestError(String),
 
   #[error("Recieved non JSON Response")]
-  NonJsonResponse,
+  NonJsonResponse(String),
 
   /// When trying to parse the JSON response into a well-formed struct there
   /// was an error. The raw JSON value that was the response is stored in
@@ -22,9 +22,15 @@ impl From<reqwest::Error> for Error {
   }
 }
 
-pub(crate) fn non_json(err: reqwest::Error) -> Error {
+pub(crate) fn request_error(err: reqwest::Error) -> Error {
+  tracing::error!("[request_error] {}", err);
+  Error::RequestError(err.to_string())
+}
+
+pub(crate) fn non_json(err: serde_json::Error, body: String) -> Error {
   tracing::error!("[non_json] {}", err);
-  Error::NonJsonResponse
+  tracing::error!("[non_json(body)] {}", body);
+  Error::NonJsonResponse(body)
 }
 
 pub(crate) fn invalid_response(
@@ -32,5 +38,6 @@ pub(crate) fn invalid_response(
   fallback: serde_json::Value,
 ) -> Error {
   tracing::error!("[invalid_response] {}", err);
+  tracing::error!("[invalid_response(fallback)] {}", fallback);
   Error::InvalidResponse(fallback)
 }

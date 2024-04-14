@@ -102,7 +102,9 @@ impl<'a> NamespacedClient<'a> {
       .send()
       .await?;
 
-    let value = res.json::<Value>().await.map_err(error::non_json)?;
+    let body = res.text().await.map_err(error::request_error)?;
+    let value = serde_json::from_str::<Value>(&body)
+      .map_err(|e| error::non_json(e, body))?;
 
     // TODO: Remove or defer clone.
     from_value::<UpsertResponse>(value.clone())
@@ -142,7 +144,10 @@ impl<'a> NamespacedClient<'a> {
       .send()
       .await?;
 
-    let value = res.json::<Value>().await.map_err(error::non_json)?;
+    let body = res.text().await.map_err(error::request_error)?;
+    let value = serde_json::from_str::<Value>(&body)
+      .map_err(|e| error::non_json(e, body))?;
+
     // TODO: Remove or defer clone.
     let vectors = from_value::<Vec<ResponseVector>>(value.clone())
       .map_err(|e| error::invalid_response(e, value))?;
@@ -173,7 +178,10 @@ impl<'a> NamespacedClient<'a> {
       .send()
       .await?;
 
-    let value = res.json::<Value>().await.map_err(error::non_json)?;
+    let body = res.text().await.map_err(error::request_error)?;
+    let value = serde_json::from_str::<Value>(&body)
+      .map_err(|e| error::non_json(e, body))?;
+
     // TODO: Remove or defer clone.
     from_value::<DeleteResponse>(value.clone())
       .map_err(|e| error::invalid_response(e, value))
