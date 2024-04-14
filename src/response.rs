@@ -1,6 +1,9 @@
 use serde::Deserialize;
 use serde_json::Value;
-use std::collections::HashMap;
+use std::{
+  collections::HashMap,
+  fmt,
+};
 
 #[derive(Debug, Deserialize)]
 pub enum Status {
@@ -33,6 +36,15 @@ pub struct QueryResponse {
 pub enum Id {
   String(String),
   Int(i32),
+}
+
+impl fmt::Display for Id {
+  fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+    match &self {
+      Id::String(s) => write!(f, "{}", s),
+      Id::Int(i) => write!(f, "{}", i),
+    }
+  }
 }
 
 #[derive(Debug, Deserialize)]
