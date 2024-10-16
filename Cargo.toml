@@ -2,7 +2,7 @@
 name = "turbopuffer-client"
 description = "Client for the turbopuffer vector database"
 authors = ["Ragkit <hi@ragkit.com>"]
-version = "0.0.3"
+version = "0.0.4"
 edition = "2021"
 license = "MIT"
 documentation = "https://docs.rs/turbopuffer-client/latest/turbopuffer-client/"
